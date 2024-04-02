@@ -1,10 +1,10 @@
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
+import { View, Text, TextInput, Pressable, StyleSheet, Button } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
 import { useAuth } from '../../AuthCtx';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Login = () => {
+const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('no status')
@@ -47,7 +47,17 @@ const Login = () => {
                     <Text style={styles.buttonText}> Login </Text>
                 </Pressable>
             </View>
-            <Text> {status} </Text>
+            {/* <Text style={{display:'flex'}}> {status} </Text> */}
+            <Pressable
+                style={({ pressed }) => [
+                    styles.button,
+                    {
+                        backgroundColor: pressed ? 'lightgray' : 'red',
+                    },
+                ]}
+                onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.buttonText}> Register </Text>
+            </Pressable>
         </SafeAreaView>
     )
 }
