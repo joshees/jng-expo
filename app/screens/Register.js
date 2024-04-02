@@ -1,20 +1,23 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
-import { useAuth } from '../../AuthCtx'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 
-const Register = () => {
-    const { onRegister } = useAuth
+const Register = ({ navigation }) => {
+    const { onRegister } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [phNumber, setPhNumber] = useState('')
+    const [phoneToken, setPhoneToken] = useState('')
 
     const register = async () => {
-        const result = await onRegister(email, password, username, phNum);
+        const result = await onRegister(email, password, username, phoneToken);
         if (result && result.error) {
             alert(result.msg);
+        } else {
+            alert("User Sucessfully registered")
+            navigation.navigate('Login');
         }
     }
 
@@ -27,6 +30,7 @@ const Register = () => {
                     value={email}
                     onChangeText={setEmail}
                     keyboardType="email-address"
+                // defaultValue='email@email.com'
                 />
                 <TextInput
                     style={styles.input}
@@ -34,30 +38,32 @@ const Register = () => {
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry={true}
+                // defaultValue='passwordccsmsmms2123'
                 />
                 <TextInput
                     style={styles.input}
                     placeholder="Username"
                     value={username}
                     onChangeText={setUsername}
+                // defaultValue='username123123123123'
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Phone Number"
-                    value={phNumber}
-                    onChangeText={setPhNumber}
-                    keyboardType="phone-pad"
+                    placeholder="Phone Token"
+                    value={phoneToken}
+                    onChangeText={setPhoneToken}
+                // defaultValue='0123929329'
                 />
-            <Pressable
-                style={({ pressed }) => [
-                    styles.button,
-                    {
-                        backgroundColor: pressed ? 'lightgray' : 'maroon',
-                    },
-                ]}
-                onPress={register}>
-                <Text style={styles.buttonText}> Register </Text>
-            </Pressable>
+                <Pressable
+                    style={({ pressed }) => [
+                        styles.button,
+                        {
+                            backgroundColor: pressed ? 'lightgray' : 'maroon',
+                        },
+                    ]}
+                    onPress={register}>
+                    <Text style={styles.buttonText}> Register </Text>
+                </Pressable>
             </View>
         </SafeAreaView>
     )

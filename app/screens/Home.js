@@ -1,32 +1,24 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { usePushNotifications } from '../../usePushNotifications';
 
 const Home = () => {
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
+  // ---- expo push notification setup
+  const { expoPushToken, notification } = usePushNotifications();
+  const data = JSON.stringify(notification, undefined, 2);
 
-  useEffect(() => {
-      registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+  // ----
 
-      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-          setNotification(notification);
-      });
-
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-          console.log(response);
-      });
-
-      return () => {
-          Notifications.removeNotificationSubscription(notificationListener.current);
-          Notifications.removeNotificationSubscription(responseListener.current);
-      };
-  }, []);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ margin: 15 }}>
       <Text>Home</Text>
+      {/* EXPO PUSH NOTIFICATION */}
+      <View >
+        <Text>Token: {expoPushToken?.data ?? ""}</Text>
+        <Text>Notification: {data}</Text>
+      </View>
+      {/* --- */}
     </SafeAreaView>
   )
 }

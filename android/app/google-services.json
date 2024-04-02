@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750913087564",
+    "project_id": "expopushnotifications1",
+    "storage_bucket": "expopushnotifications1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750913087564:android:21bf1296442b0739ffece9",
+        "android_client_info": {
+          "package_name": "com.qinusaxia.jngexpo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfh1Al_URSxwInyRkeH-iiFzL4SA0-ELk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
